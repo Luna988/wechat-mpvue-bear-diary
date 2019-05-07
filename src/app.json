@@ -1,0 +1,50 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/logs/main",
+    "pages/mine/main",
+    "pages/counter/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#39b5de",
+    "navigationBarTitleText": "diray",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#999",
+    "backgroundColor": "#fafafa",
+    "selectedColor": "#39b5de",
+    "borderStyle": "white",
+
+    "list": [{
+      "text": "首页",
+      "pagePath": "pages/index/main",
+      "iconPath": "static/images/icons/mark.png",
+      "selectedIconPath": "static/images/icons/mark-active.png"
+    }, {
+      "text": "订单",
+      "pagePath": "pages/logs/main",
+      "iconPath": "static/images/icons/mine.png",
+      "selectedIconPath": "static/images/icons/mine-active.png"
+    }],
+
+    "items": [{
+      "name": "首页",
+      "pagePath": "pages/index/main",
+      "icon": "static/images/icons/mark.png",
+      "activeIcon": "static/images/icons/mark-active.png"
+    }, {
+      "name": "订单",
+      "pagePath": "pages/logs/main",
+      "icon": "static/images/icons/mine.png",
+      "activeIcon": "static/images/icons/mine-active.png"
+    },{
+      "name": "mine",
+      "pagePath": "pages/mine/main",
+      "icon": "static/images/icons/mine.png",
+      "activeIcon": "static/images/icons/mine-active.png"
+    }],
+    "position": "bottom"
+  }
+}
