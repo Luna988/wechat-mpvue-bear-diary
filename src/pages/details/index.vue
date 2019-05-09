@@ -1,12 +1,12 @@
 <template>
   <div class="details">
-    <header :style="{backgroundImage: 'url(' + img + ')',backgroundSize: '100% 100%' }">
+    <header :style="{backgroundImage: 'url(' + backImg + ')',backgroundSize: '100% 100%' }">
+      <!-- 顶部 -->
       <ul class="toolbar">
         <li v-for="(tools,index) in toolbar" :key="index">
           <img :src="tools.tool" alt="">
         </li>
       </ul>
-      <!-- <div class="toolbar"><p v-for="(tools,index) in toolbar" :key="index"><img :src="tools.tool" alt=""></p></div> -->
       <div class="titles">
         <img :src="personImg" alt="">
         <div>
@@ -20,6 +20,9 @@
       <li class="contentChild">
         <div class="texts" v-if="items.type === 'TEXT'">{{items.content}}</div>
         <div class="imgs" v-if="items.type === 'IMAGE'"><img @click="enterPreviewMode(items.content)" :src="items.content" alt=""></div>
+        <!-- <div class="imgs" v-if="items.type === 'IMAGE'">
+          <img @click="enterPreviewMode(items.content)" :src="items.content" alt="">
+        </div> -->
         <div class="video" v-if="items.type === 'VIDEO'"><video :src="items.content"></video></div>
         <div class="remarks">
           <div class="left">
@@ -40,54 +43,33 @@
       </li>
     </ul>
     <!-- 图片预览模块 -->
-    <!-- <div>
-      <swiper
-        :current="curr"
-        display-multiple-items="1"
-        next-margin="0rpx"
-        class="fl prossgg marbtn50"
-        v-if="urls.length > 0"
-        @change='onSlideChangeEnd'
-      >
-      
-          <block v-for="(item,ind) in urls" :key="ind+1">
-          <swiper-item class="widssgg fl">
-            <div class="dja" style="height:100%"><img  @click="previewImg(ind)" :src="item.img" :style="{'width':width || '750rpx','height':height || '420rpx'}" class="img" >
-
-  </div>
-            <div class="fixbt">
-              <span class="fl">{{curr+1}}/{{urls.length}}</span>
-              <span class="fr font28 dja closes"><i v-show="item.shoucan"><img src="/static/images/yishoucan.png" style="width:38rpx;height:38rpx;margin-right:5rpx;"/>收藏图片</i></span>
-              <span class="fr font28 dja"><i v-show="!item.shoucan"><img src="/static/images/weishoucan.png" style="width:38rpx;height:38rpx;margin-right:5rpx;"/>收藏图片</i></span>
-            </div>
-          </swiper-item>
-        </block>
-
-      </swiper>
-    </div> -->
+    <div class="swipeContainer" @click="leavePreviewMode" :style="{display : previewMode ? 'block' : 'none'  }">
+      <swiper :images="imagesArray" :currentIndex="currentIndex"></swiper>
+    </div>
   </div>
 </template>
 <script>
+import swiper from '@/components/swiper';
 export default {
+  components: {swiper},
   name: '',
   data(){
     return {
-      diary: '',
-      img: '',
-      personImg: '',
-      metaTime: null,
-      title: null,
-      list: null,
-      //图片预览模式
-      previewMode: false,
-      // 当前预览索引
-      previewIndex: 0,
-      toolbar: [
+      diary: '',//当前页面diary数据
+      backImg: '',//header部分 背景图片
+      personImg: '',//头像icon
+      metaTime: null,//记录时间
+      title: null,//记录title
+      list: null,//正文数据
+      toolbar: [//头部toolbar
         {tool:'/static/images/nav/download.png'},
         {tool:'/static/images/nav/fav.png'},
         {tool:'/static/images/nav/share.png'},
         {tool:'/static/images/nav/comment.png'}
       ],
+      previewMode: false,// 图片预览模式
+      imagesArray: [],//swiper的图片数据
+      currentIndex: '',//当前点击图片的索引
     }
   },
   computed: {
@@ -96,40 +78,30 @@ export default {
     },
   },
   mounted(){
-    // console.log(this.$store.state.nihs);
-    // console.log(this.id)
-    let id = this.$root.$mp.query.id;
-    this.diary = this.$store.state.diaries[id]
-    // console.log(this.diary);
-    //背景图片引入
-    this.img = this.diary.meta.img;
-    //头像
-    this.personImg = this.diary.meta.personImg;
-    // title
-    this.title = this.diary.meta.title;
-    //metaTime
-    this.metaTime = this.diary.meta.metaTime;
-    //当前对应的详情内容列表
-    this.list = this.diary.list;
+    this.previewMode = false;
+    let id = this.$root.$mp.query.id;//删选数据源（接收上一个页面传来的辨识id）
+    this.diary = this.$store.state.diaries[id];//帅选后的数据
+    this.backImg = this.diary.meta.img;//背景图片引入
+    this.personImg = this.diary.meta.personImg;//头像
+    this.title = this.diary.meta.title;// title
+    this.metaTime = this.diary.meta.metaTime;//metaTime
+    this.list = this.diary.list;//当前对应的详情内容列表
+    this.imagesArray = this.list.filter(//过滤页面所包含的所有图片
+      content => content.type === 'IMAGE'
+    );
   },
   methods: {
     enterPreviewMode(event){
-      console.log(event)
-      // WeixinJSBridge.invoke('imagePreview', {
-      //   'urls': [value],
-      //   'current': value
-      // });
+      this.previewMode = !this.previewMode;//是否查看图片
+      for (let i=0;i<this.imagesArray.length;i++) {
+        if(this.imagesArray[i].content == event){
+          this.currentIndex = i;
+        }
+      }
     },
-    // 过滤出预览图片列表
-    // getMediaList() {
-    //   if (typeof this.data.diary !== 'undefined' &&
-    //     this.data.diary.list.length) {
-    //     this.setData({
-    //       mediaList: this.data.diary.list.filter(
-    //         content => content.type === 'IMAGE'),
-    //     })
-    //   }
-    // },
+    leavePreviewMode(){
+      this.previewMode = !this.previewMode;
+    }
   },
   
 }
@@ -217,6 +189,19 @@ export default {
             }
           }
         }
+    // .swipeContainer{
+    //   position fixed;
+    //   left 0;
+    //   top 0;
+    //   width 100%;
+    //   height 100%;
+    //   background-color #000;
+    //   .swiper{
+    //     position absolute;
+    //     top 50px;
+    //   }
+    // }
+
 
 
           

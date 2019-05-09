@@ -27,6 +27,11 @@ export default {
       mine: '334122321'
     }
   },
+  computed: {
+    mines () {
+      return this.$store.state.mines
+    },
+  },
   mounted: {
     
   }
