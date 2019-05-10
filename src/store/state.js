@@ -153,7 +153,7 @@ const state = {
       tabs: [//tabs导航菜单
         {
           "icon": "/static/images/icons/mark.png",
-          "iconActive": "/static/images/icons/markHL.png",
+          "iconActive": "/static/images/icons/mark-active.png",
           "title": "日记",
           "extraStyle": "",
         },

@@ -4,6 +4,7 @@
     "pages/logs/main",
     "pages/details/main",
     "pages/mine/main",
+    "pages/new/main",
     "pages/counter/main"
   ],
   "window": {
@@ -51,6 +52,11 @@
     },{
       "name": "mine",
       "pagePath": "pages/mine/main",
+      "icon": "static/images/icons/mine.png",
+      "activeIcon": "static/images/icons/mine-active.png"
+    },{
+      "name": "new",
+      "pagePath": "pages/new/main",
       "icon": "static/images/icons/mine.png",
       "activeIcon": "static/images/icons/mine-active.png"
     }],
