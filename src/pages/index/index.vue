@@ -1,42 +1,7 @@
 <template>
-  <!-- <div @click="clickHandle">
-
-    <div class="userinfo" @click="bindViewTap">
-      <img class="userinfo-avatar" v-if="userInfo.avatarUrl" :src="userInfo.avatarUrl" background-size="cover" />
-      <img class="userinfo-avatar" src="/static/images/user.png" background-size="cover" />
-
-      <div class="userinfo-nickname">
-        <card :text="userInfo.nickName"></card>
-      </div>
-    </div>
-
-    <div class="usermotto">
-      <div class="user-motto">
-        <card :text="motto"></card>
-      </div>
-    </div>
-
-    <form class="form-container">
-      <input type="text" class="form-control" :value="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model="motto" placeholder="v-model" />
-      <input type="text" class="form-control" v-model.lazy="motto" placeholder="v-model.lazy" />
-    </form>
-
-    <a href="/pages/counter/main" class="counter">去往Vuex示例页面</a>
-
-    <div class="all">
-        <div class="left">
-        </div>
-        <div class="right">
-        </div>
-    </div>
-  </div> -->
   <div>
-    {{diaries[0].list[0].type}}
     <ul class="content" v-for="(items,index) in diaries" :key="index">
       <li @click="details" :id="index"> 
-        <!-- {{items.list}} -->
-        {{index}}
         <div>
           <img :src="items.meta.img" background-size="cover" alt="">
         </div>
@@ -56,8 +21,6 @@
 </template>
 
 <script>
-import card from '@/components/card'
-
 export default {
   data () {
     return {
@@ -73,34 +36,14 @@ export default {
       return this.$store.state.diaries
     }
   },
-  components: {
-    card
-  },
-
   methods: {
     //跳转至日记详情页
     details (event) {
-      const url = '../mine/main?id=' + event.currentTarget.id
+      // const url = '../mine/main?id=' + event.currentTarget.id
+      const url = '../details/main?id=' + event.currentTarget.id
       wx.navigateTo({url})
     },
-
-    bindViewTap () {
-      const url = '../logs/main'
-      if (mpvuePlatform === 'wx') {
-        mpvue.switchTab({ url })
-      } else {
-        mpvue.navigateTo({ url })
-      }
-    },
-    clickHandle (ev) {
-      console.log('clickHandle:', ev)
-      // throw {message: 'custom test'}
-    }
   },
-
-  created () {
-    // let app = getApp()
-  }
 }
 </script>
 <style lang="stylus" scoped>
@@ -132,7 +75,7 @@ export default {
       img
         width 60rpx;
         height 60rpx;
-        border-radius 30rpax;
+        border-radius 50%;
 
 </style>
 
