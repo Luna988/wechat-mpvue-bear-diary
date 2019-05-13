@@ -35,7 +35,6 @@ export default {
   name: 'mine',
   data () {
     return {
-      mine: '334122321',
       highLightIndex: '0',// 高亮的标签索引
       modalShowStyle: "",// 模态对话框样式 
       diaryTitle: '',//待新建的日记标题
@@ -45,9 +44,6 @@ export default {
     mines () {
       return this.$store.state.mines
     },
-  },
-  mounted: {
-    
   },
   methods: {
     touchTab (event) {//tab切换
@@ -74,7 +70,7 @@ export default {
       this.hideModal();
       // this.clearTitle();
       const url = '../new/main?title=' + this.diaryTitle;
-      console.log(this.diaryTitle);
+      console.log('传递'+this.diaryTitle);
       // const url = '../new/main';
       wx.navigateTo({url})
     }
