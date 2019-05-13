@@ -31,28 +31,59 @@ export default {
         return {
             setData: '',
             
+            diary: {// 日记对象
+                meta: {},
+                list: [],
+            },
             showMode: 'common',// 页面所处模式
             // show: false,
             // onClose() {
             //     this.setData({ show: false });
             // }
+            
+            showTab: true,// 是否显示底部tab栏
         }
     },
     
     mounted(){
-        debugger
         wx.setNavigationBarTitle({ title: '编辑日记' });//设置当前页面title
-        this.title = this.$root.$mp.query.title;//接收传递来的日记title
-        console.log(title);
-        
+        let title = this.$root.$mp.query.title;//接收传递来的日记title
+        console.log('接收传递来的日记title::'+title);
+        this.init();
     },
+    
     methods: {
-        
-        // 进入文本编辑模式
-        inputTouch(event) {
-            this.setData({ showMode: 'inputText' });
+       
+        setMeta() { // 构造日记meta信息
+            var that = this;
+            console.log('11231213')
+            // app.getUserInfo(info => {
+            //     that.setData.diary.meta.avatar = info.avatarUrl;
+            //     that.setData.diary.meta.nickName = info.nickName;
+            //     console.log('构造日记meta信息setData：：'+this.setData);
+            //     // that.setData({
+            //     //     'diary.meta.avatar': info.avatarUrl,
+            //     //     'diary.meta.nickName': info.nickName,
+            //     // })
+            // })
         },
         
+        inputTouch(event) {// 进入文本编辑模式
+            // this.setData.showMode = 'inputText'
+            
+            // this.setData({ showMode: 'inputText' });
+            this.setData('showMode','inputText');
+            console.log('进入文本编辑模式时的setData：：'+this.setData);
+        },
+         
+        showTab() {// 显示底部tab
+            // this.setData({ showTab: true });
+            console.log('显示底部tabsetData：：'+this.setData);
+        },
+        init(){//数据初始化
+            this.setMeta();
+            console.log('init函数执行了')
+        }
     }
 }
 </script>
