@@ -45,6 +45,24 @@ export default {
   },
   methods: {
     axiosPost(){
+      wx.request({
+        url: 'http://192.168.1.214:8008/getMeta1',
+        // url: 'https://baijiahao.baidu.com/s?id=1607681508832910238&wfr=spider&for=pc',
+
+        method: 'GET',
+        header: {
+          'content-type': 'application/json'
+        },
+        data: {
+          meta: '23213'
+        },
+        success: function(res){
+          console.log(res)
+        },
+        fail: function(err){
+
+        }
+      })
       console.log(2222)
     },
     //跳转至日记详情页
