@@ -1,5 +1,7 @@
 <template>
   <div>
+    {{count}}
+    <button @click="axiosPost">发送https请求</button>
     <ul class="content" v-for="(items,index) in diaries" :key="index">
       <li @click="details" :id="index"> 
         <div>
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
   data () {
     return {
@@ -32,11 +35,18 @@ export default {
     }
   },
   computed: {
-    diaries () {
-      return this.$store.state.diaries
-    }
+    ...mapState({
+      diaries: state=>state.diaries,
+      count: state=>state.count
+    })
+    // diaries () {
+    //   return this.$store.state.diaries
+    // }
   },
   methods: {
+    axiosPost(){
+      console.log(2222)
+    },
     //跳转至日记详情页
     details (event) {
       // const url = '../mine/main?id=' + event.currentTarget.id

@@ -1,5 +1,8 @@
 <template>
   <div class="mine">
+    <!-- 323213213--
+    {{resturantName}} -->
+    <button @click="modifyAName('A餐馆')">提交数据</button>
     <div class="model" :style="modalShowStyle">
       <div class="dialog">
         <p class="titles">请输入日记标题</p>
@@ -31,6 +34,7 @@
   </div>
 </template>
 <script>
+import {mapState} from 'vuex';
 export default {
   name: 'mine',
   data () {
@@ -41,11 +45,17 @@ export default {
     }
   },
   computed: {
-    mines () {
-      return this.$store.state.mines
-    },
+    // mines () {
+    //   return this.$store.state.mines
+    // },
+    ...mapState({
+      mines: state=>state.mines
+    })
   },
   methods: {
+    // ...mapActions(
+    //         ['modifyAName']
+    //     ),
     touchTab (event) {//tab切换
       let tabIndex = parseInt(event);//点击图片当前下标
       this.highLightIndex = tabIndex.toString();

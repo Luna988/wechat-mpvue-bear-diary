@@ -50,6 +50,7 @@
 </template>
 <script>
 import swiper from '@/components/swiper';
+import {mapState} from 'vuex';
 export default {
   components: {swiper},
   name: '',
@@ -73,9 +74,12 @@ export default {
     }
   },
   computed: {
-    diaries () {
-      return this.$store.state.diaries
-    },
+    ...mapState({
+      diaries: state=>state.diaries
+    })
+    // diaries () {
+    //   return this.$store.state.diaries
+    // },
   },
   mounted(){
     this.previewMode = false;
