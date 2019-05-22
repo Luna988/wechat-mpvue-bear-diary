@@ -1,6 +1,6 @@
 <template>
     <div class="news">
-        749294329492384
+        测试！
         <button open-type="getUserInfo" @getuserinfo="bindgetuserinfo">用户授权</button>
         <!-- 文本输入 -->
         <!-- <ul class="box" v-if="setData.showMode === 'inputText'">
