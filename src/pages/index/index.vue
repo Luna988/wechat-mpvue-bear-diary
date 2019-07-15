@@ -45,16 +45,17 @@ export default {
   },
   methods: {
     axiosPost(){
+      console.log(2222)
       wx.request({
-        url: 'http://192.168.1.214:8008/getMeta1',
-        // url: 'https://baijiahao.baidu.com/s?id=1607681508832910238&wfr=spider&for=pc',
+        // url: 'http://localhost/getMeta1',
+        url: 'https://elm.cangdu.org/v1/pois?city_id=1&keyword=迪士尼&type=search',
 
         method: 'GET',
         header: {
           'content-type': 'application/json'
         },
         data: {
-          meta: '23213'
+          // meta: '23213'
         },
         success: function(res){
           console.log(res)
@@ -63,7 +64,7 @@ export default {
 
         }
       })
-      console.log(2222)
+      
     },
     //跳转至日记详情页
     details (event) {

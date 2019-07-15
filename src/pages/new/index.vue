@@ -1,8 +1,8 @@
 <template>
     <div class="news">
-        {{count}}
+        <!-- {{count}}
         <button @click="$store.commit('add')">add</button>
-        <button @click="$store.commit('reduce')">reduce</button>
+        <button @click="$store.commit('reduce')">reduce</button> -->
         <!-- <button open-type="getUserInfo" @getuserinfo="bindgetuserinfo">用户授权</button> -->
         <!-- 文本输入 -->
         <div class="inputBox" v-if="setData.showMode === 'inputText'">
